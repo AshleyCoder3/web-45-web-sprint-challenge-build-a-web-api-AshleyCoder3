@@ -17,5 +17,17 @@ async function validateId(req, res, next) {
         next(err)
     }
 }
+function validatePost(req, res, next) {
+    if (!req.body.name ||
+        !req.body.description) {
+        next({
+            message: 'Missing required fields name and description,',
+            status: 400
+        })
+    } else {
+        next()
+    }
 
-module.exports = { validateId }
+}
+
+module.exports = { validateId, validatePost }
