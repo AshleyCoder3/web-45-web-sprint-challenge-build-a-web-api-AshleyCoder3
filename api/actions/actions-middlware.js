@@ -17,5 +17,17 @@ async function validateId(req, res, next) {
         next(err);
     }
 }
+function validateAction(req, res, next) {
+    if (!req.body.notes ||
+        !req.body.description ||
+        !req.body.project_id) {
+        next({
+            message: 'Missing required fields name and description',
+            status: 400
+        });
+    } else {
+        next();
+    }
+}
 
-module.exports = { validateId };
+module.exports = { validateId, validateAction };

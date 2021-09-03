@@ -1,6 +1,6 @@
 const express = require('express');
 const Action = require('./actions-model');
-const { validateId } = require('./actions-middlware');
+const { validateId, validateAction } = require('./actions-middlware');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -12,6 +12,13 @@ router.get('/', (req, res, next) => {
 });
 router.get('/:id', validateId, (req, res) => {
     res.json(req.action);
+});
+router.post('/', validateAction, (req, res, next) => {
+    Action.insert(req.body)
+        .then(newAction => {
+            res.json(newAction);
+        })
+        .catch(next);
 });
 
 //***********************500 error middleware***********//
