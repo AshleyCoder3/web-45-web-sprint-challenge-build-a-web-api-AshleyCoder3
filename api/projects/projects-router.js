@@ -1,50 +1,48 @@
-const express = require('express')
-const Project = require('./projects-model')
-const { validateId, validatePost, validateCompleted } = require('./projects-middleware')
-const router = express.Router()
+const express = require('express');
+const Project = require('./projects-model');
+const { validateId, validatePost, validateCompleted } = require('./projects-middleware');
+const router = express.Router();
 
 router.get('/projects', (req, res, next) => {
     Project.get()
         .then(projects => {
-            res.json(projects)
+            res.json(projects);
         })
-        .catch(next)
-})
+        .catch(next);
+});
 router.get('/projects/:id', validateId, (req, res,) => {
-    res.json(req.project)
-})
+    res.json(req.project);
+});
 router.post('/projects', validatePost, (req, res, next) => {
     Project.insert(req.body)
         .then(newProj => {
-            res.json(newProj)
+            res.json(newProj);
         })
-        .catch(next)
-})
+        .catch(next);
+});
 router.put('/projects/:id', validateId, validatePost, validateCompleted, (req, res, next) => [
     Project.update(req.params.id, req.body)
         .then(editProj => {
-            res.json(editProj)
+            res.json(editProj);
         })
         .catch(next)
-])
+]);
 router.delete('/projects/:id', validateId, (req, res, next) => {
     Project.remove(req.params.id)
         .then(() => {
             res.json({
                 message: 'The project has been deleted'
-            })
+            });
         })
-        .catch(next)
-})
+        .catch(next);
+});
 router.get('/projects/:id/actions', validateId, (req, res, next) => {
     Project.getProjectActions(req.params.id)
         .then(action => {
-            res.json(action)
+            res.json(action);
         })
-        .catch(next)
-})
-
-
+        .catch(next);
+});
 
 //***********************500 error middleware***********//
 //eslint-disable-next-line
@@ -56,4 +54,4 @@ router.use((err, req, res, next) => {
     });
 });
 
-module.exports = router
+module.exports = router;

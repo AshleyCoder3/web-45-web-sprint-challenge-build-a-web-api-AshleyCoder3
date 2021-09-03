@@ -1,20 +1,20 @@
-const Project = require('./projects-model')
+const Project = require('./projects-model');
 
 async function validateId(req, res, next) {
     try {
-        const { id } = req.params
-        const projId = await Project.get(id)
+        const { id } = req.params;
+        const projId = await Project.get(id);
         if (projId) {
-            req.project = projId
-            next()
+            req.project = projId;
+            next();
         } else {
             next({
                 message: 'project is not found',
                 status: 404
-            })
+            });
         }
     } catch (err) {
-        next(err)
+        next(err);
     }
 }
 function validatePost(req, res, next) {
@@ -23,9 +23,9 @@ function validatePost(req, res, next) {
         next({
             message: 'Missing required fields name and description',
             status: 400
-        })
+        });
     } else {
-        next()
+        next();
     }
 }
 function validateCompleted(req, res, next) {
@@ -33,10 +33,10 @@ function validateCompleted(req, res, next) {
         next({
             message: 'Missing required field completed:false',
             status: 400
-        })
+        });
     } else {
-        next()
+        next();
     }
 }
 
-module.exports = { validateId, validatePost, validateCompleted }
+module.exports = { validateId, validatePost, validateCompleted };
