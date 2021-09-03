@@ -28,6 +28,15 @@ router.put('/:id', validateId, validateAction, validateCompleted, (req, res, nex
         })
         .catch(next);
 });
+router.delete('/:id', validateId, (req, res, next) => {
+    Action.remove(req.params.id)
+        .then(() => {
+            res.json({
+                message: 'The Action has been deleted'
+            });
+        })
+        .catch(next);
+});
 
 //***********************500 error middleware***********//
 //eslint-disable-next-line
