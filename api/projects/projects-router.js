@@ -1,5 +1,6 @@
 const express = require('express')
 const Project = require('./projects-model')
+const { validateId } = require('./projects-middleware')
 const router = express.Router()
 
 router.get('/projects', (req, res, next) => {
@@ -9,7 +10,10 @@ router.get('/projects', (req, res, next) => {
         })
         .catch(next)
 })
+router.get('/projects/:id', validateId, (req, res,) => {
+    res.json(req.project)
 
+})
 
 
 //***********************500 error middleware***********//
