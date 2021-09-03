@@ -27,7 +27,15 @@ router.put('/projects/:id', validateId, validatePost, validateCompleted, (req, r
         })
         .catch(next)
 ])
-
+router.delete('/projects/:id', validateId, (req, res, next) => {
+    Project.remove(req.params.id)
+        .then(() => {
+            res.json({
+                message: 'The project has been deleted'
+            })
+        })
+        .catch(next)
+})
 //***********************500 error middleware***********//
 //eslint-disable-next-line
 router.use((err, req, res, next) => {
