@@ -27,7 +27,9 @@ server.use('/api/actions', actionsRouter);
 
 server.get('/', (req, res) => {
     res.json({
-        message: 'Welcome to Sprint 4!'
+        message: 'Welcome to Sprint 4!',
+        message2: 'TRY endpoint /api/projects',
+        message3: 'TRY endpoint /api/actions'
     });
 });
 
