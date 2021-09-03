@@ -36,6 +36,16 @@ router.delete('/projects/:id', validateId, (req, res, next) => {
         })
         .catch(next)
 })
+router.get('/projects/:id/actions', validateId, (req, res, next) => {
+    Project.getProjectActions(req.params.id)
+        .then(action => {
+            res.json(action)
+        })
+        .catch(next)
+})
+
+
+
 //***********************500 error middleware***********//
 //eslint-disable-next-line
 router.use((err, req, res, next) => {
