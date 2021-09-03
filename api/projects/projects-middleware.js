@@ -21,13 +21,22 @@ function validatePost(req, res, next) {
     if (!req.body.name ||
         !req.body.description) {
         next({
-            message: 'Missing required fields name and description,',
+            message: 'Missing required fields name and description',
             status: 400
         })
     } else {
         next()
     }
-
+}
+function validateCompleted(req, res, next) {
+    if (req.body.completed == null) {
+        next({
+            message: 'Missing required field completed:false',
+            status: 400
+        })
+    } else {
+        next()
+    }
 }
 
-module.exports = { validateId, validatePost }
+module.exports = { validateId, validatePost, validateCompleted }

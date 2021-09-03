@@ -1,6 +1,6 @@
 const express = require('express')
 const Project = require('./projects-model')
-const { validateId, validatePost } = require('./projects-middleware')
+const { validateId, validatePost, validateCompleted } = require('./projects-middleware')
 const router = express.Router()
 
 router.get('/projects', (req, res, next) => {
@@ -20,6 +20,13 @@ router.post('/projects', validatePost, (req, res, next) => {
         })
         .catch(next)
 })
+router.put('/projects/:id', validateId, validatePost, validateCompleted, (req, res, next) => [
+    Project.update(req.params.id, req.body)
+        .then(editProj => {
+            res.json(editProj)
+        })
+        .catch(next)
+])
 
 //***********************500 error middleware***********//
 //eslint-disable-next-line
