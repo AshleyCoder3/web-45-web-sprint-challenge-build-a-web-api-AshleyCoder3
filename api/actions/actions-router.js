@@ -3,6 +3,14 @@ const Action = require('./actions-model');
 const { } = require('./actions-middlware');
 const router = express.Router();
 
+router.get('/', (req, res, next) => {
+    Action.get()
+        .then(actions => {
+            res.json(actions);
+        })
+        .catch(next);
+});
+
 //***********************500 error middleware***********//
 //eslint-disable-next-line
 router.use((err, req, res, next) => {
